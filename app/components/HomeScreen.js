@@ -49,36 +49,52 @@ export default class HomeScreen extends React.Component{
     constructor(props) {
       super(props);
     }
-    static navigationOptions = {
-        title: 'Health Tracker',
-        headerStyle: {
+     static navigationOptions = ({navigation}) => {
+       return {
+         title: 'Health Tracker_11',
+         headerStyle: {
           backgroundColor: '#87cefa'
         },
-        headerRight: () => (
-          <Button transparent style={{textAlign: 'right', right: 20}} onPress={()=>this.props.navigation.navigate('Welcome')}>
-            <Text>Log Out</Text>
+        headerRight: ()=> (
+          <Button transparent style={{textAlign: 'right', right: 20}} onPress={ navigation.getParam('logout')}>
+            <Text>Log out</Text>
           </Button>
-        ),
-        headerLeft: () => (
-          <Button transparent style={{textAlign:'left', left: 20}} onPress = {() => this.props.navigation.navigate.toggleDrawer()} >
-            {/* <Text> Menu </Text> */}
-            <Icon name='menu'/>
-          </Button>
-        ),
-        headerBackTitle: 'Home',
-        drawerLabel: 'Menu',
-        drawerIcon: ({tintColor}) => (
-          <Image 
-            source ={{uri: 'http://icons.iconarchive.com/icons/graphicloads/medical-health/256/heart-beat-2-icon.png'}}
-          />
-        ),
-    };
-    // _logout = async() => {
-    //   alert('sss');
-    //   await AsyncStorage.clear();
-    //   alert('ssss');
-    //   this.props.navigation.navigate("Auth");
-    // }
+        )
+       };
+     };
+     componentWillMount() {
+       this.props.navigation.setParams({logout: this._logout});
+     }
+    // static navigationOptions =  {
+    //     title: 'Health Tracker',
+    //     headerStyle: {
+    //       backgroundColor: '#87cefa'
+    //     },
+    //     headerRight: () => (
+    //       <Button transparent style={{textAlign: 'right', right: 20}} onPress={()=>this.props.navigation.navigate('Welcome')}>
+    //         <Text>Log Out</Text>
+    //       </Button>
+    //     ),
+    //     headerLeft: () => (
+    //       <Button transparent style={{textAlign:'left', left: 20}} onPress = {() => this.props.navigation.navigate.toggleDrawer()} >
+    //         {/* <Text> Menu </Text> */}
+    //         <Icon name='menu'/>
+    //       </Button>
+    //     ),
+    //     headerBackTitle: 'Home',
+    //     drawerLabel: 'Menu',
+    //     drawerIcon: ({tintColor}) => (
+    //       <Image 
+    //         source ={{uri: 'http://icons.iconarchive.com/icons/graphicloads/medical-health/256/heart-beat-2-icon.png'}}
+    //       />
+    //     ),
+    // };
+    _logout = async() => {
+      // alert('sss');
+      await AsyncStorage.clear();
+      // alert('ssss');
+      this.props.navigation.navigate("Auth");
+    }
   
     render() {
       return(
